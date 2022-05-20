@@ -2,7 +2,10 @@ var buttons = document.querySelectorAll('#qwerty');
 var phrase = document.querySelector('#phrase ul');
 var startGame = document.querySelector('.btn__reset')
 var overlay = document.querySelector('#overlay');
+var hearts = document.querySelectorAll('.tries');
 var missed = 0;
+let match = null;
+
 
 var phrases = [ 'chicken', 'turtle', 'horse pig', 'sheep', 'ostrich'];
 
@@ -31,27 +34,57 @@ function addPhraseToDisplay ( ) {
 
 addPhraseToDisplay();
 
-// function checkLetter () {
-//     let letterButton = buttons.innerHTML;
-//     for (i = 0; i < input.length; i++) {
+function checkLetter (letter) {
+    let phraseNode = document.querySelectorAll('ul li');
+    let phraseArray = Array.from(phraseNode);
+    for (i = 0; i < phraseArray.length; i++) {
+        if (letter === phraseArray[i].innerHTML) {
+            phraseArray[i].className = "show";
+            match = letter;
+        } else {
 
-//         if (letterButton === input[i].textContent) {
+        };
+    };
+    return match
+};
 
-//         } else {
+const phraseNodeLetter = document.querySelectorAll('li.letter');
+const phraseArrayLetter = Array.from(phraseNodeLetter);
 
-//         };
-//     };
-// };
+function checkWin () {
+    let phraseNodeShow = document.querySelectorAll('li.show');
+    let phraseArrayShow = Array.from(phraseNodeShow);
 
-// const checkWin = arr => {
+    if (phraseArrayShow.length === phraseArrayLetter.length) {
+        overlay.className = 'win';
+        overlay.style.display = 'flex'
+        overlay.querySelector('h2.title').textContent = 'You Win';
+        startGame.textContent = 'Play Again?'
+    } else if ( missed >= 5 ) {
+        overlay.className = 'lose';
+        overlay.style.display = 'flex';
+        overlay.querySelector('h2.title').textContent = 'You Lose';
+        startGame.textContent = 'Play Again?'
+    };
+};
 
-// };
 //Start button event listener, removes overlay on click
 startGame.addEventListener('click', (e) => {
-    overlay.style.display = 'none';
+    if (startGame.textContent === 'Start Game')
+        overlay.style.display = 'none';
+    else {
+        document.location.reload();
+    };
 });
 
 qwerty.addEventListener('click', (button) => {
     let letter = button.target.innerHTML;
-    console.log(letter);
+    checkLetter(letter);
+    if (match === letter) {
+
+    } else {
+        missed = missed + 1;
+        hearts[missed - 1].style.display = 'none';
+    }
+    checkWin();
 });
