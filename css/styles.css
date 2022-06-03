@@ -55,6 +55,10 @@ button {
   transition: var(--transition);
 }
 
+button:hover {
+  background-color: darkgray;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
@@ -95,6 +99,12 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
+  font-size: var(--font-size-medium);
+  height: 65px;
+  width: 65px;
+  padding: 20px 1px 0 1px;
+  margin-right: 2px;
+  border-radius: 5px;
 }
 
 /* Keyboard */
@@ -106,6 +116,13 @@ button {
 
 .chosen {
   background: var(--color-neutral);
+  border-radius: 5px;
+  font-size: var(--font-size-medium);
+  color: #FFFFFF;
+}
+
+.incorrect {
+  background: red;
   border-radius: 5px;
   font-size: var(--font-size-medium);
   color: #FFFFFF;
