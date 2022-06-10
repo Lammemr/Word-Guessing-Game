@@ -98,5 +98,6 @@ qwerty.addEventListener('click', (button) => {
         missed = missed + 1;
         hearts[missed - 1].firstChild.src = 'images/lostHeart.png';
     }
+    button.target.disabled = true;
     checkWin();
 });
